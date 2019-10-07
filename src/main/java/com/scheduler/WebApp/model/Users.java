@@ -1,10 +1,13 @@
-package user.controller;
+package com.scheduler.WebApp.model;
+
+import org.mvel2.util.Make.String;
 
 public class Users 
 {
 	private int employeeId; 
 	private String firstName; 
 	private String lastName; 
+	private boolean managerStatus;
 	
 	//Constructor
 	public Users()
@@ -14,7 +17,6 @@ public class Users
 	
 	
 	// Setters and getters 
-	
 	public int getEmployeeId()
 	{
 		return employeeId;
@@ -43,13 +45,17 @@ public class Users
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public boolean isManager(boolean managerStatus) {
+		return this.managerStatus;
+	}
 
 	
 	
 	@Override
-    public String toString() {
-        return "Emplyee info{" +
-                "Emplouee ID: " + employeeId +
+    public java.lang.String toString() {
+        return "Employee info{" +
+                "Employee ID: " + employeeId +
                 ", First Name: " + firstName + '\'' +
                 ", Last Name: " + lastName+ '\'' +
                 '}';
