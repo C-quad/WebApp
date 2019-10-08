@@ -1,6 +1,6 @@
 package com.scheduler.WebApp.model;
 
-import org.mvel2.util.Make.String;
+import org.springframework.data.annotation.Id;
 
 public class Users 
 {
@@ -14,6 +14,13 @@ public class Users
 	{
 		
 	}
+	
+	public Users(int employeeId, String firstName, String lastName, boolean managerStatus) {
+	    this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.managerStatus = managerStatus;
+    }
 	
 	
 	// Setters and getters 
@@ -53,11 +60,9 @@ public class Users
 	
 	
 	@Override
-    public java.lang.String toString() {
-        return "Employee info{" +
-                "Employee ID: " + employeeId +
-                ", First Name: " + firstName + '\'' +
-                ", Last Name: " + lastName+ '\'' +
-                '}';
+    public String toString() {
+        return String.format(
+                "Employee[id=%s, firstName='%s', lastName='%s']",
+                employeeId, firstName, lastName);
     }
 }
