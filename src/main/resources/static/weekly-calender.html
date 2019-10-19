@@ -1,392 +1,126 @@
 <!DOCTYPE HTML>
-<html>
+<HTML lang="en">
 	<head>
-		<title>Scheduler | My Calender</title>
+		<title>My Calender</title>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-		<link rel="stylesheet" href="assets/css/main.css">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="fullcalendar/core/main.css" />
+		<link rel="stylesheet" href="fullcalendar/daygrid/main.css" />
+		<link rel="stylesheet" href="fullcalendar/timegrid/main.css" />
+
+		<script src="fullcalendar/core/main.js"></script>
+		<script src="fullcalendar/daygrid/main.js"></script>
+		<script src="fullcalendar/timegrid/main.js"></script>
+		<script src="fullcalendar/interaction/main.js"></script>
+		<script src="assets/js/calendar-control.min.js"></script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var Calendar = FullCalendar.Calendar;
+				var Draggable = FullCalendarInteraction.Draggable;
+
+				var containerE1 = document.getElementById("external-events");
+				var calendarE1 = document.getElementById("calendar");
+				var checkbox = document.getElementById("drop-remove");
+
+				new Draggable(containerE1, {
+					itemSelector: ".fc-event",
+					eventData: function(eventE1) {
+						return {
+							title: eventE1.innerText
+						};
+					}
+				});
+
+				var calendar = new Calendar(calendarE1, {
+					plugins: [ "interaction", "dayGrid", "timeGrid" ],
+					defaultView: "timeGridWeek",
+					header: {
+						left: "prev,next today",
+						center: "title",
+						right: "dayGridMonth,timeGridWeek,timeGridDay"
+					},
+					selectable: true,
+					selectMirror: true,
+					editable: true,
+					droppable: true,
+
+				});
+
+				calendar.on('select', function(eventE) {
+					var title = prompt('Event title: ');
+					if(title) {
+						calendar.addEvent({ 
+							title: title,
+							start: eventE.start,
+							end: eventE.end,
+							allDay: eventE.allDay
+						})
+					}
+					calendar.unselect()
+				});
+
+				calendar.render();
+			});
+		</script>
+
+		<script>
+			function saveCalender() {
+				
+			}
+		</script>
+
+		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+				font-size: 14px;
+			}
+
+			#external-events {
+				position: fixed;
+				z-index: 2;
+				top: 20px;
+				left: 20px;
+				width: 150px;
+				padding: 0 10px;
+				border: 1px solid #ccc;
+				background: #eee;
+			}
+
+			#external-events .fc-event {
+				margin: 1em 0;
+				cursor: move;
+			}
+
+			#calendar-container {
+				position: relative;
+				z-index: 1;
+				margin-left: 200px;
+			}
+
+			#calendar {
+				max-width: 900px;
+				margin: 20px auto;
+			}
+		</style>
 	</head>
-	<body class="weekly-calender">
-		<div id="page-wrapper">
-
-
-				<section id="header">
-					<div class="container">
-
-
-							<h1 id="logo">My Weekly Calender</h1>
-
-
-						<!-- Nav -->
-							<nav id="nav">
-								<ul>
-									<li><a class="icon solid fa-home" href="index.html"><span>Home Page</span></a></li>
-									<li><a class="icon solid fa-sitemap" href="about-us.html"><span>About Us</span></a></li>
-									<li>
-										<a class="icon solid fa-retweet" href="login.html"><span>Login</span></a>
-										<ul>
-											<li><a href="register.html">Register</a></li>
-										</ul>
-									</li>
-									<li><a class="icon fa-chart-bar" href="weekly-calender.html" ><span>My Calender</span></a></li>
-								</ul>
-							</nav>
-
-					</div>
-				</section>
-				<br>
-				<div class="container">
-					<table class="table table-striped table-hover table-bordered">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col"></th>
-								<th scope="col">Sunday mm/dd</th>
-								<th scope="col">Monday mm/dd</th>
-								<th scope="col">Tuesday mm/dd</th>
-								<th scope="col">Wednesday mm/dd</th>
-								<th scope="col">Thursday mm/dd</th>
-								<th scope="col">Friday mm/dd</th>
-								<th scope="col">Saturday mm/dd</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>8:00am</td>
-								<td class="table-info">School</td>
-								<td class="table-sucess"> </td>
-								<td class="table-sucess"> </td>
-								<td class="table-sucess"> </td>
-								<td class="table-sucess"> </td>
-								<td class="table-sucess"> </td>
-								<td class="table-sucess"> </td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>8:30am</td>
-								<td></td>
-								<td class="table-primary">Work</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>9:00am</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>9:30am</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>10:00am</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>10:30am</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>11:00am</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>11:30am</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>12:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>12:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>1:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>1:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>2:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>2:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>3:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>3:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>4:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>4:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>5:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>5:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>6:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>6:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>7:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>7:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>8:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>8:30pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>9:00pm</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<section id="main">
-				</section>
+	<body>
+		<div><a href="index.html">Home</a></div>
+		<div id="external-events">
+			<p>
+				<strong>Draggable Events</strong>
+			</p>
+			<div class="fc-event">Work</div>
+			<div class="fc-event">School</div>
 		</div>
-		
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.dropotron.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
 
+		<div id="calendar-container">
+			<div id="calendar"></div>
+		</div>
+		<form onSubmit="JavaScript:saveCalender()">
+			<button type="submit" class="btn btn-primary" id="submitBtn">Save</button>
+		</form>
 	</body>
-</html>
+</HTML>
