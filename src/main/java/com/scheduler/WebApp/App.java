@@ -1,5 +1,7 @@
 package com.scheduler.WebApp;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,11 +26,12 @@ public class App implements CommandLineRunner
 
 	   public void run(String... args) throws Exception {
 
+		   
 	        repository.deleteAll();
 
 	        // save a couple of customers
-	        repository.save(new Users(1, "Alice", "Smith", false));
-	        repository.save(new Users(2, "Bob", "Smith", false));
+	        repository.save(new Users( 1, "Alice", "Smith", false));	
+	        repository.save(new Users( 2, "Bob", "Smith", false));
 
 	        // fetch all customers
 	        System.out.println("Customers found with findAll():");
@@ -48,6 +51,7 @@ public class App implements CommandLineRunner
 	        for (Users user : repository.findByLastName("Smith")) {
 	            System.out.println(user);
 	        }
+	        
 
 	    }
 }
