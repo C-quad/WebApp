@@ -1,9 +1,12 @@
 package com.scheduler.WebApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.scheduler.WebApp.model.Users;
 
 
 @RestController
@@ -24,5 +27,21 @@ public class WebController
         // with the URL: http://localhost:8080/
         return "OK";
     }
+    
+    
+    @RequestMapping( value ="/data", 
+    				method = RequestMethod.POST, 
+    				produces = MediaType.APPLICATION_JSON_VALUE)
+    public void insertNewEmployee(Users newEmployee)
+    {
+    	
+    }
+    	
+    	
+    
+    
+    
+    
+    	
+} 
 	
-}
