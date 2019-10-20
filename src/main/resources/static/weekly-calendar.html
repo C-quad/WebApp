@@ -44,7 +44,6 @@
 					selectMirror: true,
 					editable: true,
 					droppable: true,
-
 				});
 
 				calendar.on('select', function(eventE) {
@@ -65,7 +64,7 @@
 		</script>
 
 		<script>
-			function saveCalender() {
+			function saveCalendar() {
 				
 			}
 		</script>
@@ -107,7 +106,8 @@
 		</style>
 	</head>
 	<body>
-		<div><a href="index.html">Home</a></div>
+		<div><a href="index.html">&nbsp;Home</a><a href="about-us.html">&nbsp;About Us&nbsp;</a><a href="login.html">&nbsp;Login&nbsp;</a><a href="register.html">&nbsp;Register</a></div>
+
 		<div id="external-events">
 			<p>
 				<strong>Draggable Events</strong>
@@ -115,12 +115,15 @@
 			<div class="fc-event">Work</div>
 			<div class="fc-event">School</div>
 		</div>
-
+		
 		<div id="calendar-container">
 			<div id="calendar"></div>
 		</div>
-		<form onSubmit="JavaScript:saveCalender()">
-			<button type="submit" class="btn btn-primary" id="submitBtn">Save</button>
-		</form>
+
+		<div id="calendar-container">
+			<form onSubmit="JavaScript:saveCalender()">
+				<button type="submit" class="btn btn-primary" id="submitBtn">Save</button>
+			</form>
+		</div>
 	</body>
 </HTML>

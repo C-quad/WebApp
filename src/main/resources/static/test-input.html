@@ -8,10 +8,14 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 		<script>
-			function exampleJS() {
-				var jFirst = document.getElementById("fname").value;
-				var jLast = document.getElementById("lname").value;
-				alert("Your name is " + jFirst + " " + jLast);
+			function processName(firstName, lastName) {
+				$.ajax({
+					type: "POST",
+					url: "/name",
+					data: {id: firstName.value,
+							id2: lastName.value
+					}
+				})
 			}
 		</script>
 
@@ -20,7 +24,7 @@
 		<!-- Main -->
 		<section id="main">
 			<div class="container">
-				<form name="myForm" onSubmit="JavaScript:exampleJS()">
+				<form name="myForm" onSubmit="JavaScript:processName(fname, lname)">
 				  <div class="form-group">
 				    <label>First Name</label>
 				    <input type="text" id="fname" name="firstname" class="form-control" placeholder="First Name">
