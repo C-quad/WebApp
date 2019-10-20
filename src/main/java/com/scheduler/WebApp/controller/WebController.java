@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.scheduler.WebApp.model.Users;
@@ -28,6 +30,7 @@ public class WebController
         return "OK";
     }
     
+<<<<<<< HEAD
     
     @RequestMapping( value ="/data", 
     				method = RequestMethod.POST, 
@@ -45,3 +48,11 @@ public class WebController
     	
 } 
 	
+=======
+    //Gets first name / last name input from test-input page
+    @RequestMapping(value = "/name", method = RequestMethod.POST)
+    public void getNames(@RequestParam(value = "id") String firstName, @RequestParam(value = "id2") String lastName) {
+		System.out.println("First Name: " + firstName + " Last Name: " + lastName);
+    }
+}
+>>>>>>> 0911883a9cfa35525a4e602224b7502c7e6469e1
