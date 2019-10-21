@@ -12,3 +12,15 @@ employees!
   ***Explain additional features of our web service***
 
   ***Explain how to use our web service***
+  
+# Developers
+
+  **[Randy Salazar](https://github.com/rjsalaz)**
+  
+  **[Amanda Cosentino](https://github.com/mandeezie)**
+  
+  **[Lance Dall](https://github.com/ldall2009)**
+  
+  **[Steven Phung](https://github.com/shphung)**
+  
+  **[Connor Chase](https://github.com/Hikaru5)**
