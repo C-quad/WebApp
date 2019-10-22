@@ -48,5 +48,17 @@ public class WebController
     public void getNames(@RequestParam(value = "id") String firstName, @RequestParam(value = "id2") String lastName) {
 		System.out.println("First Name: " + firstName + " Last Name: " + lastName);
     }
+    
+    //Gets all values (First name, last name, email, password) from registeration page
+    @RequestMapping(value = "/checkCredentials", method = RequestMethod.POST)
+    public void getCredentials(@RequestParam(value = "fname") String firstName, @RequestParam(value = "lname") String lastName,
+    		@RequestParam(value = "em") String email, @RequestParam(value = "pass") String password,
+    		@RequestParam(value = "repass") String repassword) {
+    	System.out.println("First Name: " + firstName);
+    	System.out.println("Last Name: " + lastName);
+    	System.out.println("Email: " + email);
+    	System.out.println("Pw: " + password);
+    	System.out.println("RE:Pw: " + repassword);
+    }
 }
 

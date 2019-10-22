@@ -44,17 +44,27 @@
 					selectMirror: true,
 					editable: true,
 					droppable: true,
+
+					events : "/assets/sampleEventCalendar.json",
+
+					select: function(eventE) {
+						var title = prompt('Event title: ');
+						if(title) {
+							calendar.addEvent({
+								title: title,
+								start: eventE.start,
+								end: eventE.end,
+								allDay: eventE.allDay
+							})
+						}
+						calendar.unselect()
+					}
 				});
 
-				calendar.on('select', function(eventE) {
-					var title = prompt('Event title: ');
-					if(title) {
-						calendar.addEvent({ 
-							title: title,
-							start: eventE.start,
-							end: eventE.end,
-							allDay: eventE.allDay
-						})
+				calendar.on('eventClick', function(eventE) {
+					var del = confirm("Delete this event?\nEvent Name: " + eventE.event.title + "\nStart time: " + eventE.event.start + "\nEnd  time: " + eventE.event.end);
+					if(del) {
+						eventE.event.remove();
 					}
 					calendar.unselect()
 				});
@@ -65,7 +75,7 @@
 
 		<script>
 			function saveCalendar() {
-				
+				alert("click successful");
 			}
 		</script>
 
@@ -121,7 +131,7 @@
 		</div>
 
 		<div id="calendar-container">
-			<form onSubmit="JavaScript:saveCalender()">
+			<form onSubmit="JavaScript:saveCalendar()">
 				<button type="submit" class="btn btn-primary" id="submitBtn">Save</button>
 			</form>
 		</div>
