@@ -11,10 +11,11 @@
 			function processName(firstName, lastName) {
 				$.ajax({
 					type: "POST",
-					url: "/name",
-					data: {id: firstName.value,
-							id2: lastName.value
-					}
+					url: "/signup",
+					data: { id: firstName.value,
+						 	id2: lastName.value,
+						 	
+						  }
 				})
 			}
 		</script>
