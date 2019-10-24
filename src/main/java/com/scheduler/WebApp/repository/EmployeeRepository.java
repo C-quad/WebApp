@@ -10,15 +10,13 @@ import org.springframework.stereotype.Repository;
 import com.scheduler.WebApp.model.Users;
 
 @Repository
-public interface EmployeeRepository extends MongoRepository<Users, String> {
+public interface EmployeeRepository extends MongoRepository<Users, String>  {
 
-    public Users findByFirstName(String firstName);
+   public Users findByFirstName(String firstName);
     
-    public List<Users> findByLastName(String lastName);
+    //public List<Users> findByLastName(String lastName);
     
-  //  int insertNewEmployee(UUID employeeID, Users employee ); 
     
-  //  int deleteEmployee(UUID employeeID);
     
     
     

@@ -3,23 +3,27 @@ package com.scheduler.WebApp.model;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
-
+import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
+
+@Document
 public class Users 
 {
 	
-	private final Integer employeeId; 
-	private final String firstName; 
-	private final String lastName; 
-	private boolean managerStatus = false;
+	@Id
+	private UUID employeeId; 
+	private String firstName; 
+	private String lastName; 
+	private Boolean managerStatus;
 	
 	//Constructor
 	public Users(
-			@JsonProperty("eomployeeID")Integer employeeId, 
+			@JsonProperty("employeeID")UUID employeeId, 
 			@JsonProperty("firstName")String firstName,
 			@JsonProperty("lastName")String lastName,
-			@JsonProperty("managerStatus")boolean managerStatus
+			@JsonProperty("managerStatus")Boolean managerStatus
 				)
 				{
 				    this.employeeId = employeeId;
@@ -41,12 +45,18 @@ public class Users
 	*/ 
 	
 	
-	
 	// Setters and getters 
-	public int getEmployeeId()
+	public UUID getEmployeeId()
 	{
 		return employeeId;
 	}
+	
+	public void setEmployeeId(UUID employeeId)
+	{
+		this.employeeId = employeeId; 
+
+	}
+	
 	
 	
 	/*
@@ -63,13 +73,13 @@ public class Users
 	}
 	
 	
-	/*
+	
 	public void setFirstName(String firstName) 
 	{
 		this.firstName = firstName;
 	}
 	
-	*/
+	
 	
 	public String getLastName()
 	{
@@ -77,14 +87,18 @@ public class Users
 	}
 	
 	
-	/*
+	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	
-	*/
 	
-	public boolean isManager(boolean managerStatus) {
+	public void setIsManager(Boolean isManager) {
+		this.managerStatus = isManager;
+	}
+	
+	
+	public Boolean isManager() {
 		return this.managerStatus;
 	}
 
