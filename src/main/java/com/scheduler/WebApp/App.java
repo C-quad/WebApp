@@ -13,20 +13,23 @@ import com.scheduler.WebApp.repository.EmployeeRepository;
 
 
 @SpringBootApplication
-public class App implements CommandLineRunner
+public class App 
+//implements CommandLineRunner
 {
 
-    @Autowired
-    private EmployeeRepository repository;
+	
+    //@Autowired
+    //private EmployeeRepository repository;
     
 	public static void main(String[] args) throws Exception 
 	{
 		SpringApplication.run(App.class, args);
 	}
-
+	
+	/*
 	   public void run(String... args) throws Exception {
 
-		   
+		    
 	        repository.deleteAll();
 
 	        // save a couple of customers
@@ -54,4 +57,6 @@ public class App implements CommandLineRunner
 	        
 
 	    }
+	    */
+	
 }
