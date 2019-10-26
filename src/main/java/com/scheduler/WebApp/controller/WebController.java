@@ -24,6 +24,9 @@ public class WebController
 	@Autowired
 	private EmployeeServices employeeServices; 
 	
+	//Using a static string field to ensure we end up with only one string
+	private static String fullEventString = "";
+	
 	
 	
 	// Add an employee to the database
@@ -74,7 +77,7 @@ public class WebController
 		System.out.println("First Name: " + firstName + " Last Name: " + lastName);
     }
     
-    //Gets all values (First name, last name, email, password) from registeration page
+    //Gets all values (First name, last name, email, password) from registration page
     @RequestMapping(value = "/checkCredentials", method = RequestMethod.POST)
     public void getCredentials(@RequestParam(value = "fname") String firstName, @RequestParam(value = "lname") String lastName,
     		@RequestParam(value = "em") String email, @RequestParam(value = "pass") String password,
@@ -84,6 +87,51 @@ public class WebController
     	System.out.println("Email: " + email);
     	System.out.println("Pw: " + password);
     	System.out.println("RE:Pw: " + repassword);
+    }
+    
+    //For loop in JS will loop through all events present on client side memory, passing 
+    //the event's title, start time, end time, and current index number in the for loop,
+    //This method will call another method to compile a complete JSON formatted calendar event string
+    @RequestMapping(value = "/getEvents", method = RequestMethod.POST)
+    public void getEvents(@RequestParam(value = "title") String title, @RequestParam(value = "start") String start, 
+    		@RequestParam(value = "end") String end, @RequestParam(value = "index") int index,
+    		@RequestParam(value = "lastIndex") int lastIndex) {
+    	
+    	//Empties previous string if we're going through a new array, indicated by index 0
+    	if(index == 0) {
+    		fullEventString = "";
+    	}
+    	
+    	//Append new event's attributes at current index to the string
+    	fullEventString = fullEventString + appendEventString(
+    					  "\t{"
+    					+ "\n\t\t\"title\" : \"" + title + "\","
+    					+ "\n\t\t\"start\" : \""+ start + "\","
+    					+ "\n\t\t\"end\" : \"" + end + "\""
+    					+ "\n\t}", index, lastIndex);
+    	
+    	//At this point fullEventString should contain entire calendar
+    	if(index == lastIndex) {
+    		System.out.println(fullEventString);
+    	}
+    }
+    
+    //Method that appends new event content based on index to our current string
+    public String appendEventString(String content, int index, int lastIndex) {
+    	String eventString = content;
+    	//Appends [ bracket at the beginning of the string
+    	
+    	if(index == 0) {
+        	eventString = "[\n" + content + ",\n";
+        //Appends content in the middle
+    	} else if(index != 0 && index != lastIndex) {
+    		return eventString + ",\n";
+    	//Appends ] bracket at the end of the string
+    	} else if(index == lastIndex) {
+    		eventString = content + "\n]";
+    	}
+    	//Return formatted string
+		return eventString;
     }
 }
 

@@ -8,11 +8,12 @@
 		<link rel="stylesheet" href="fullcalendar/daygrid/main.css" />
 		<link rel="stylesheet" href="fullcalendar/timegrid/main.css" />
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 		<script src="fullcalendar/core/main.js"></script>
 		<script src="fullcalendar/daygrid/main.js"></script>
 		<script src="fullcalendar/timegrid/main.js"></script>
 		<script src="fullcalendar/interaction/main.js"></script>
-		<script src="assets/js/calendar-control.min.js"></script>
 
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
@@ -36,9 +37,38 @@
 					plugins: [ "interaction", "dayGrid", "timeGrid" ],
 					defaultView: "timeGridWeek",
 					header: {
-						left: "prev,next today",
+						left: "prev,next today addEventButton",
 						center: "title",
 						right: "dayGridMonth,timeGridWeek,timeGridDay"
+					},
+					customButtons: {
+						addEventButton: {
+							text: 'Save',
+							click: function() {
+								var ev = calendar.getEvents();
+								var counter = 0;
+								var lIndex = ev.length - 1;
+								while(counter < ev.length) {
+									var t = ev[counter].title;
+									var s = ev[counter].start;
+									var e = ev[counter].end;
+									var st = s.toISOString();
+									var en = e.toISOString();
+									$.ajax({
+										url: '/getEvents',
+										type: 'POST',
+										data: {
+											title: t,
+											start: st,
+											end: en,
+											index: counter,
+											lastIndex: lIndex
+										}
+									})
+									counter++;
+								}
+							}
+						}
 					},
 					selectable: true,
 					selectMirror: true,
@@ -64,19 +94,16 @@
 				calendar.on('eventClick', function(eventE) {
 					var del = confirm("Delete this event?\nEvent Name: " + eventE.event.title + "\nStart time: " + eventE.event.start + "\nEnd  time: " + eventE.event.end);
 					if(del) {
-						eventE.event.remove();
+						var del2 = confirm("Are you sure you want to delete: " + eventE.event.title + "?");
+						if(del2) {
+							eventE.event.remove();
+						}
 					}
 					calendar.unselect()
 				});
 
 				calendar.render();
 			});
-		</script>
-
-		<script>
-			function saveCalendar() {
-				alert("click successful");
-			}
 		</script>
 
 		<style>
@@ -116,24 +143,17 @@
 		</style>
 	</head>
 	<body>
-		<div><a href="index.html">&nbsp;Home</a><a href="about-us.html">&nbsp;About Us&nbsp;</a><a href="login.html">&nbsp;Login&nbsp;</a><a href="register.html">&nbsp;Register</a></div>
-
 		<div id="external-events">
 			<p>
-				<strong>Draggable Events</strong>
+				<p><a href="index.html">Home</a><br><a href="about-us.html">About Us</a><br><a href="login.html">Login</a><br><a href="register.html">Register</a><br></p>
+				Drag predefined events onto calendar or click on blank spaces to add events.
+				<br><br><strong>Draggable Events</strong>
 			</p>
 			<div class="fc-event">Work</div>
 			<div class="fc-event">School</div>
 		</div>
-		
 		<div id="calendar-container">
 			<div id="calendar"></div>
-		</div>
-
-		<div id="calendar-container">
-			<form onSubmit="JavaScript:saveCalendar()">
-				<button type="submit" class="btn btn-primary" id="submitBtn">Save</button>
-			</form>
 		</div>
 	</body>
 </HTML>
