@@ -89,14 +89,13 @@ public class WebController
     	System.out.println("RE:Pw: " + repassword);
     }
     
-    //For loop in JS will loop through all events present on client side memory, passing 
-    //the event's title, start time, end time, and current index number in the for loop,
+    //JS will loop through all events present on client side memory, passing 
+    //the event's title, start time, end time, and current index number to know if we're at the first or last event
     //This method will call another method to compile a complete JSON formatted calendar event string
     @RequestMapping(value = "/getEvents", method = RequestMethod.POST)
     public void getEvents(@RequestParam(value = "title") String title, @RequestParam(value = "start") String start, 
     		@RequestParam(value = "end") String end, @RequestParam(value = "index") int index,
     		@RequestParam(value = "lastIndex") int lastIndex) {
-    	
     	//Empties previous string if we're going through a new array, indicated by index 0
     	if(index == 0) {
     		fullEventString = "";
@@ -109,7 +108,6 @@ public class WebController
     					+ "\n\t\t\"start\" : \""+ start + "\","
     					+ "\n\t\t\"end\" : \"" + end + "\""
     					+ "\n\t}", index, lastIndex);
-    	
     	//At this point fullEventString should contain entire calendar
     	if(index == lastIndex) {
     		System.out.println(fullEventString);
@@ -119,14 +117,17 @@ public class WebController
     //Method that appends new event content based on index to our current string
     public String appendEventString(String content, int index, int lastIndex) {
     	String eventString = content;
-    	//Appends [ bracket at the beginning of the string
     	
-    	if(index == 0) {
+    	//If the event is both our first and last event
+    	if(index == lastIndex && index == 0) {
+    		eventString = "[\n" + content + "\n]";
+        //If the event is the first event but not the last
+    	} else if(index == 0) {
         	eventString = "[\n" + content + ",\n";
-        //Appends content in the middle
+    	//If the event is neither first nor last; a middle event
     	} else if(index != 0 && index != lastIndex) {
     		return eventString + ",\n";
-    	//Appends ] bracket at the end of the string
+    	//If the event is the last event
     	} else if(index == lastIndex) {
     		eventString = content + "\n]";
     	}

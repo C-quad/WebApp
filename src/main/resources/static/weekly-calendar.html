@@ -45,28 +45,30 @@
 						addEventButton: {
 							text: 'Save',
 							click: function() {
-								var ev = calendar.getEvents();
-								var counter = 0;
-								var lIndex = ev.length - 1;
-								while(counter < ev.length) {
-									var t = ev[counter].title;
-									var s = ev[counter].start;
-									var e = ev[counter].end;
-									var st = s.toISOString();
-									var en = e.toISOString();
-									$.ajax({
-										url: '/getEvents',
-										type: 'POST',
-										data: {
-											title: t,
-											start: st,
-											end: en,
-											index: counter,
-											lastIndex: lIndex
-										}
-									})
-									counter++;
-								}
+								(async function loop() {
+									var ev = calendar.getEvents();
+									var i;
+									var lIndex = ev.length - 1;
+									for(i = 0; i < ev.length; i++) {
+										var t = ev[i].title;
+										var s = ev[i].start;
+										var e = ev[i].end;
+										var st = s.toISOString();
+										var en = e.toISOString();
+										await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
+										$.ajax({
+											url: '/getEvents',
+											type: 'POST',
+											data: {
+												title: t,
+												start: st,
+												end: en,
+												index: i,
+												lastIndex: lIndex
+											}
+										})
+									}
+								})();
 							}
 						}
 					},
@@ -147,7 +149,10 @@
 			<p>
 				<p><a href="index.html">Home</a><br><a href="about-us.html">About Us</a><br><a href="login.html">Login</a><br><a href="register.html">Register</a><br></p>
 				Drag predefined events onto calendar or click on blank spaces to add events.
-				<br><br><strong>Draggable Events</strong>
+				<br><br>
+				Click save button at the top of the page to save your calendar.
+				<br><br>
+				<strong>Draggable Events</strong>
 			</p>
 			<div class="fc-event">Work</div>
 			<div class="fc-event">School</div>
