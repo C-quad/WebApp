@@ -31,6 +31,7 @@ public class Users
 			        this.firstName = firstName;
 			        this.lastName = lastName;
 			        this.managerStatus = managerStatus;
+			        this.eventBlocks = "";
 				}
 	
 	
