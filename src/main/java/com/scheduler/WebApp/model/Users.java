@@ -17,6 +17,7 @@ public class Users
 	private String firstName; 
 	private String lastName; 
 	private Boolean managerStatus;
+	private String eventBlocks;
 	
 	//Constructor
 	public Users(
@@ -30,7 +31,6 @@ public class Users
 			        this.firstName = firstName;
 			        this.lastName = lastName;
 			        this.managerStatus = managerStatus;
-					
 				}
 	
 	
@@ -100,6 +100,14 @@ public class Users
 	
 	public Boolean isManager() {
 		return this.managerStatus;
+	}
+	
+	public String getEventBlocks() {
+	    return this.eventBlocks;
+	}
+	
+	public void setEventBlocks(String eventBlocks){
+	    this.eventBlocks = eventBlocks;
 	}
 
 	
