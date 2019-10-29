@@ -37,12 +37,12 @@
 					plugins: [ "interaction", "dayGrid", "timeGrid" ],
 					defaultView: "timeGridWeek",
 					header: {
-						left: "prev,next today addEventButton",
+						left: "prev,next today addSaveButton,addLoadButton",
 						center: "title",
 						right: "dayGridMonth,timeGridWeek,timeGridDay"
 					},
 					customButtons: {
-						addEventButton: {
+						addSaveButton: {
 							text: 'Save',
 							click: function() {
 								(async function loop() {
@@ -55,7 +55,7 @@
 										var e = ev[i].end;
 										var st = s.toISOString();
 										var en = e.toISOString();
-										await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
+										await new Promise(resolve => setTimeout(resolve, Math.random() * 200));
 										$.ajax({
 											url: '/getEvents',
 											type: 'POST',
@@ -70,6 +70,31 @@
 									}
 								})();
 							}
+						},
+						addLoadButton: {
+							text: 'Load',
+							click: function() {
+								//Removes all events from calendar
+								(async function loop() {
+									var events = calendar.getEvents();
+									var evSources = calendar.getEventSources();
+										for(var i = 0; i < events.length; i++) {
+											events[i].remove();
+											await new Promise(resolve => setTimeout(resolve, Math.random() * 200));
+										}
+									evSources.remove();
+								})();
+
+								$.ajax({
+									url: '/loadEvents',
+									type: 'POST',
+									data: { "data" : "check" },
+									success: function(data) {
+										calendar.addEventSource(eval(data));
+										calendar.refetch();
+									}
+								})
+							}
 						}
 					},
 					selectable: true,
@@ -77,7 +102,7 @@
 					editable: true,
 					droppable: true,
 
-					events : "/assets/sampleEventCalendar.json",
+					//events: "/assets/sampleEventCalendar.json",
 
 					select: function(eventE) {
 						var title = prompt('Event title: ');

@@ -103,11 +103,11 @@ public class WebController
     	
     	//Append new event's attributes at current index to the string
     	fullEventString = fullEventString + appendEventString(
-    					  "\t{"
-    					+ "\n\t\t\"title\" : \"" + title + "\","
-    					+ "\n\t\t\"start\" : \""+ start + "\","
-    					+ "\n\t\t\"end\" : \"" + end + "\""
-    					+ "\n\t}", index, lastIndex);
+    					  "{"
+    					+ "\n\"title\" : \"" + title + "\","
+    					+ "\n\"start\" : \""+ start + "\","
+    					+ "\n\"end\" : \"" + end + "\""
+    					+ "\n}", index, lastIndex);
     	//At this point fullEventString should contain entire calendar
     	if(index == lastIndex) {
     		System.out.println(fullEventString);
@@ -133,6 +133,13 @@ public class WebController
     	}
     	//Return formatted string
 		return eventString;
+    }
+    
+    //Method that passes string of events to client-side calendar
+    @RequestMapping(value = "/loadEvents", method = RequestMethod.POST)
+    public @ResponseBody String loadEvents() {
+    	System.out.println(fullEventString);
+		return fullEventString;
     }
 }
 
