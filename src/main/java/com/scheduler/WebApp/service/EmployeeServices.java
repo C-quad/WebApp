@@ -24,9 +24,12 @@ public class EmployeeServices
 		
 		this.employeeRepository = employeeRepository;
 		employeeRepository.deleteAll();
-		employeeRepository.save(new Users( UUID.randomUUID(), "Alice", "Smith", false));	
-		employeeRepository.save(new Users( UUID.randomUUID(), "Bob", "Smith", false));
+		employeeRepository.save(new Users( UUID.randomUUID(), "Alice", "Smith", false, "aSmith@gmail.com", "Password"));	
+		employeeRepository.save(new Users( UUID.randomUUID(), "Bob", "Smith", false, "bSmith@gmail.com", "Passowrd"));
+	
 	}
+	
+	
 	
 	// Add employee to database 
 	public Users addEmployee(Users employee)
@@ -46,7 +49,7 @@ public class EmployeeServices
 	 
 	
 	// get employee by first name
-	public Users getEmployeeByFistName(String firstName)
+	public Users getEmployeeByFirstName(String firstName)
 	{
 		return employeeRepository.findByFirstName(firstName);
 				
@@ -61,9 +64,11 @@ public class EmployeeServices
 		employee.setLastName(lastName);
 		employee.setIsManager(isManager);
 		
+		
+	
 		System.out.println(employee.getFirstName());
 		System.out.println(employee.getLastName());
-		
+
 		return  employeeRepository.save(employee);
 	}
 	

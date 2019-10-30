@@ -12,7 +12,10 @@ import com.scheduler.WebApp.model.Users;
 @Repository
 public interface EmployeeRepository extends MongoRepository<Users, String>  {
 
-   public Users findByFirstName(String firstName);
+	@Override
+	void delete(Users deleted);
+	
+	public Users findByFirstName(String firstName);
     
     //public List<Users> findByLastName(String lastName);
     

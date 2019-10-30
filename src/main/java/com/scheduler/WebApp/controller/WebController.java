@@ -24,8 +24,6 @@ public class WebController
 	@Autowired
 	private EmployeeServices employeeServices; 
 	
-	
-	
 	// Add an employee to the database
     @RequestMapping( value = "/addEmployee", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE )
     public String insertNewEmployee(@RequestBody Users employee)
@@ -74,16 +72,23 @@ public class WebController
 		System.out.println("First Name: " + firstName + " Last Name: " + lastName);
     }
     
+    
     //Gets all values (First name, last name, email, password) from registeration page
     @RequestMapping(value = "/checkCredentials", method = RequestMethod.POST)
     public void getCredentials(@RequestParam(value = "fname") String firstName, @RequestParam(value = "lname") String lastName,
     		@RequestParam(value = "em") String email, @RequestParam(value = "pass") String password,
-    		@RequestParam(value = "repass") String repassword) {
+    		@RequestParam(value = "repass") String repassword) 
+    {
     	System.out.println("First Name: " + firstName);
     	System.out.println("Last Name: " + lastName);
     	System.out.println("Email: " + email);
     	System.out.println("Pw: " + password);
     	System.out.println("RE:Pw: " + repassword);
+    	
+    	
+    	employeeServices.addEmployee(new Users(UUID.randomUUID(), firstName, lastName, false, email, repassword) );
+   
+    	
     }
 }
 
