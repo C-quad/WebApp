@@ -14,22 +14,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-//@Document (collection = "users")
+
 public class Users 
 {
 	
 	@Id
 	private UUID employeeId; 
-	@Indexed(unique = true, direction = IndexDirection.DESCENDING)
+	
 	private String email;
 	private String password; 
 	private String firstName; 
 	private String lastName; 
 	private Boolean managerStatus;
-	//private boolean enabled; 
-	
-	@DBRef
-	private Set<Role> roles;
+
+	private String eventBlocks;
+
 	
 
 	//Constructor
@@ -46,9 +45,13 @@ public class Users
 			        this.firstName = firstName;
 			        this.lastName = lastName;
 			        this.managerStatus = managerStatus;
+
 			        this.email = email; 
 			        this.password = password;
 			        
+
+			        this.eventBlocks = "";
+
 				}
 	
 	
@@ -109,6 +112,14 @@ public class Users
 	
 	public Boolean isManager() {
 		return this.managerStatus;
+	}
+	
+	public String getEventBlocks() {
+	    return this.eventBlocks;
+	}
+	
+	public void setEventBlocks(String eventBlocks){
+	    this.eventBlocks = eventBlocks;
 	}
 
 	
