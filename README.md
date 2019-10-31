@@ -1,18 +1,20 @@
 # Work Schedule Generator
 
-_Generating Work Schedules that Work Around **Your** Schedule_
+_Create Work Schedules that Work Around **Your** Schedule_
 
-This service allows students that go to school generate a work schedule that does not conflict with any of their class times!
-Ideally, this service would be used by work supervisors that schedule employee shifts to generate all schedules for student workers.
-Using _Work Schedule Generator_, work shift schedulers will be able to easily and conveniently generate work schedules for all student
-employees!
+This service allows employees create a work schedule that does not conflict with any of their plans!
+Ideally, this service would be used by any employee that has segments of time each week that they must do something else and they would not be able to go into work at that time.  Students that have class, athletes that have a game, and parents that have to pick up their kids are all applicable examples of candidates that would benefit from this application.
+Using _Work Schedule Generator_, employees will be able to easily and conveniently create a work schedule for themselves!
 
-# TO:DO
+# Features
 
-  ***Explain additional features of our web service***
+-A calendar is displayed for the user showing the current week by default
+-A user can drag an event onto the calendar, and dynamically adjust the times this event will last for
+-Customization of the event: times and title of event can be changed by the user
+-A deletion system for events that a user would no longer need to account for
+-A schedule saving system to save a user's unique schedule.
+-A login system, where each user has a login and their individual schedule will show up upon login
 
-  ***Explain how to use our web service***
-  
 # Developers
 
   **[Randy Salazar](https://github.com/rjsalaz)**
