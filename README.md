@@ -2,7 +2,7 @@
 
 _Create Work Schedules that Work Around **Your** Schedule_
 
-This service allows employees create a work schedule that does not conflict with any of their plans!
+This service allows employees to create a work schedule that does not conflict with any of their plans!
 Ideally, this service would be used by any employee that has segments of time each week that they must do something else and they would not be able to go into work at that time.  Students that have class, athletes that have a game, and parents that have to pick up their kids are all applicable examples of candidates that would benefit from this application.
 Using _Work Schedule Generator_, employees will be able to easily and conveniently create a work schedule for themselves!
 
