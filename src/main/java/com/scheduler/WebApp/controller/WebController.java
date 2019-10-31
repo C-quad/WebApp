@@ -24,6 +24,9 @@ public class WebController
 	@Autowired
 	private EmployeeServices employeeServices; 
 	
+	//Using a static string field to ensure we end up with only one string
+	private static String fullEventString = "";
+	
 	// Add an employee to the database
     @RequestMapping( value = "/addEmployee", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE )
     public String insertNewEmployee(@RequestBody Users employee)
@@ -91,5 +94,57 @@ public class WebController
     	
     }
     
+    //JS will loop through all events present on client side memory, passing 
+    //the event's title, start time, end time, and current index number to know if we're at the first or last event
+    //This method will call another method to compile a complete JSON formatted calendar event string
+    @RequestMapping(value = "/getEvents", method = RequestMethod.POST)
+    public void getEvents(@RequestParam(value = "title") String title, @RequestParam(value = "start") String start, 
+    		@RequestParam(value = "end") String end, @RequestParam(value = "index") int index,
+    		@RequestParam(value = "lastIndex") int lastIndex) {
+    	//Empties previous string if we're going through a new array, indicated by index 0
+    	if(index == 0) {
+    		fullEventString = "";
+    	}
+    	
+    	//Append new event's attributes at current index to the string
+    	fullEventString = fullEventString + appendEventString(
+    					  "{"
+    					+ "\n\"title\" : \"" + title + "\","
+    					+ "\n\"start\" : \""+ start + "\","
+    					+ "\n\"end\" : \"" + end + "\""
+    					+ "\n}", index, lastIndex);
+    	//At this point fullEventString should contain entire calendar
+    	if(index == lastIndex) {
+    		System.out.println(fullEventString);
+    	}
+    }
+    
+    //Method that appends new event content based on index to our current string
+    public String appendEventString(String content, int index, int lastIndex) {
+    	String eventString = content;
+    	
+    	//If the event is both our first and last event
+    	if(index == lastIndex && index == 0) {
+    		eventString = "[\n" + content + "\n]";
+        //If the event is the first event but not the last
+    	} else if(index == 0) {
+        	eventString = "[\n" + content + ",\n";
+    	//If the event is neither first nor last; a middle event
+    	} else if(index != 0 && index != lastIndex) {
+    		return eventString + ",\n";
+    	//If the event is the last event
+    	} else if(index == lastIndex) {
+    		eventString = content + "\n]";
+    	}
+    	//Return formatted string
+		return eventString;
+    }
+    
+    //Method that passes string of events to client-side calendar
+    @RequestMapping(value = "/loadEvents", method = RequestMethod.POST)
+    public @ResponseBody String loadEvents() {
+    	System.out.println(fullEventString);
+		return fullEventString;
+    }
 }
 
