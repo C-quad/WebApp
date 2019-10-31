@@ -8,12 +8,12 @@ Using _Work Schedule Generator_, employees will be able to easily and convenient
 
 # Features
 
--A calendar is displayed for the user showing the current week by default
--A user can drag an event onto the calendar, and dynamically adjust the times this event will last for
--Customization of the event: times and title of event can be changed by the user
--A deletion system for events that a user would no longer need to account for
--A schedule saving system to save a user's unique schedule.
--A login system, where each user has a login and their individual schedule will show up upon login
+- A calendar is displayed for the user showing the current week by default
+- A user can drag an event onto the calendar, and dynamically adjust the times this event will last for
+- Customization of the event: times and title of event can be changed by the user
+- A deletion system for events that a user would no longer need to account for
+- A schedule saving system to save a user's unique schedule.
+- A login system, where each user has a login and their individual schedule will show up upon login
 
 # Developers
 
