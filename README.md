@@ -1,4 +1,4 @@
-# Work Schedule Generator
+# Work Schedule
 
 _Create Work Schedules that Work Around **Your** Schedule_
 
@@ -17,12 +17,12 @@ Using _Work Schedule Generator_, employees will be able to easily and convenient
 
 # Developers
 
-  **[Randy Salazar](https://github.com/rjsalaz)**
+  **[Randy Salazar:peach:](https://github.com/rjsalaz)**
   
-  **[Amanda Cosentino](https://github.com/mandeezie)**
+  **[Amanda Cosentino:penguin:](https://github.com/mandeezie)**
   
-  **[Lance Dall](https://github.com/ldall2009)**
+  **[Lance Dall:flushed:](https://github.com/ldall2009)**
   
-  **[Steven Phung](https://github.com/shphung)**
+  **[Steven Phung:nauseated_face:](https://github.com/shphung)**
   
-  **[Connor Chase](https://github.com/Hikaru5)**
+  **[Connor Chase:heavy_division_sign:](https://github.com/Hikaru5)**
