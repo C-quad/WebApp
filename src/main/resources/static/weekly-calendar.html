@@ -32,6 +32,16 @@
 						};
 					}
 				});
+				
+				new Draggable(containerE1, {
+					itemSelector: ".fc-event2",
+					eventData: function(eventE1) {
+						return {
+							title: eventE1.innerText,
+							backgroundColor: 'orange'
+						};
+					}
+				});
 
 				var calendar = new Calendar(calendarE1, {
 					plugins: [ "interaction", "dayGrid", "timeGrid" ],
@@ -156,6 +166,13 @@
 				margin: 1em 0;
 				cursor: move;
 			}
+			
+			#external-events .fc-event2 {
+				margin: 1em 0;
+				cursor: move;
+				background-color: orange;
+				color: white;
+			}
 
 			#calendar-container {
 				position: relative;
@@ -179,7 +196,7 @@
 				<br><br>
 				<strong>Draggable Events</strong>
 			</p>
-			<div style = "background-color:orange;" class="fc-event">Work</div>
+			<div style="background-color:orange;" class="fc-event2">Work</div>
 			<div class="fc-event">School</div>
 		</div>
 		<div id="calendar-container">
