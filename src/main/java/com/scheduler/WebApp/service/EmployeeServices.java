@@ -85,5 +85,16 @@ public class EmployeeServices
 	
 	// insert availability
 	
+	public String availability(String schedule, Users employee)
+	{
+
+		
+		employee.setEventBlocks(schedule);
+		
+		employeeRepository.save(employee);
+				
+		return employee.getEventBlocks();
+	}
+	
 	
 }

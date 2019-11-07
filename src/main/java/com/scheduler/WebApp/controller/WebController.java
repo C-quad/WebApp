@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.scheduler.WebApp.model.CreateUser;
 import com.scheduler.WebApp.model.Users;
 import com.scheduler.WebApp.service.EmployeeServices;
 
@@ -76,23 +77,6 @@ public class WebController
     }
     
     
-    //Gets all values (First name, last name, email, password) from registeration page
-    @RequestMapping(value = "/checkCredentials", method = RequestMethod.POST)
-    public void getCredentials(@RequestParam(value = "fname") String firstName, @RequestParam(value = "lname") String lastName,
-    		@RequestParam(value = "em") String email, @RequestParam(value = "pass") String password,
-    		@RequestParam(value = "repass") String repassword) 
-    {
-    	System.out.println("First Name: " + firstName);
-    	System.out.println("Last Name: " + lastName);
-    	System.out.println("Email: " + email);
-    	System.out.println("Pw: " + password);
-    	System.out.println("RE:Pw: " + repassword);
-    	
-    	
-    	employeeServices.addEmployee(new Users(UUID.randomUUID(), firstName, lastName, false, email, repassword) );
-   
-    	
-    }
     
     //JS will loop through all events present on client side memory, passing 
     //the event's title, start time, end time, and current index number to know if we're at the first or last event
@@ -116,7 +100,19 @@ public class WebController
     	//At this point fullEventString should contain entire calendar
     	if(index == lastIndex) {
     		System.out.println(fullEventString);
+    		
+    		Users user = employeeServices.getEmployeeByFirstName("Alice");
+    		
+    		System.out.println(user.getFirstName());
+
+        	employeeServices.availability(fullEventString, user);
+        	
+    		System.out.println(user.getEventBlocks());
+
+        	
     	}
+    	
+    	
     }
     
     //Method that appends new event content based on index to our current string
@@ -144,7 +140,9 @@ public class WebController
     @RequestMapping(value = "/loadEvents", method = RequestMethod.POST)
     public @ResponseBody String loadEvents() {
     	System.out.println(fullEventString);
-		return fullEventString;
+    	
+    	Users user = employeeServices.getEmployeeByFirstName("Alice");
+		return user.getEventBlocks();
     }
 }
 
