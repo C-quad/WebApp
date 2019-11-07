@@ -9,10 +9,9 @@
 
 		<script>
 			function checkCredentials(firstName, lastName, email, password, repassword) {
-				alert(firstname.value)
 				$.ajax({
 					type: "POST",
-					url: "/checkCredentials",
+					url: "/check/Credentials",
 					data: {
 						fname: firstName.value,
 						lname: lastName.value,
@@ -21,6 +20,7 @@
 						repass: repassword.value
 					}
 				})
+					
 			}
 		</script>
 	</head>

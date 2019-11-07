@@ -21,7 +21,7 @@ public class LoginAndRegister
 	private EmployeeServices employeeServices;
 
 	  //Gets all values (First name, last name, email, password) from registeration page
-    @RequestMapping(value = "/checkCredentials", method = RequestMethod.POST)
+    @RequestMapping(value = "/check/Credentials", method = RequestMethod.POST)
     public void getCredentials(
     						@RequestParam(value = "fname") String firstName, @RequestParam(value = "lname") String lastName,
     						@RequestParam(value = "em") String email, @RequestParam(value = "pass") String password,
