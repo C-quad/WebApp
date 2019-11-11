@@ -41,7 +41,7 @@ public class EmployeeServices
 
 
 	//Get all employees
-	public List<Users>getAllEmployees()
+	public List<Users> getAllEmployees()
 	{
 		return employeeRepository.findAll();
 	}

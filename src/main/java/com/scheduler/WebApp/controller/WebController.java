@@ -1,12 +1,9 @@
 package com.scheduler.WebApp.controller;
 
 import java.util.List;
-import java.util.UUID;
 
-import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.scheduler.WebApp.model.CreateUser;
 import com.scheduler.WebApp.model.Users;
 import com.scheduler.WebApp.service.EmployeeServices;
 
