@@ -1,6 +1,9 @@
 package com.scheduler.WebApp.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -140,10 +143,22 @@ public class WebController
     
     //Method that passes string of events to client-side calendar
     @RequestMapping(value = "/loadEvents", method = RequestMethod.POST)
-    public @ResponseBody String loadEvents() {
+    public @ResponseBody String loadEvents() throws FileNotFoundException {
+    	fullEventString = "";
+    	
+    	File calendar = new File("sampleEventCalendar.json");
+    	Scanner scan = new Scanner(calendar);
+    	
+    	while(scan.hasNext()) {
+    		fullEventString = fullEventString + scan.nextLine();
+    	}
+    	
     	System.out.println(fullEventString);
     	
     	Users user = employeeServices.getEmployeeByFirstName("Alice");
+    	
+    	employeeServices.availability(fullEventString, user);
+    	
 		return user.getEventBlocks();
     }
 }
