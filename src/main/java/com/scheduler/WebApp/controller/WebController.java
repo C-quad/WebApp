@@ -89,7 +89,7 @@ public class WebController
     @RequestMapping(value = "/getEvents", method = RequestMethod.POST)
     public void getEvents(@RequestParam(value = "title") String title, @RequestParam(value = "start") String start, 
     		@RequestParam(value = "end") String end, @RequestParam(value = "index") int index,
-    		@RequestParam(value = "lastIndex") int lastIndex) {
+    		@RequestParam(value = "lastIndex") int lastIndex, @RequestParam(value = "color") String color) {
     	//Empties previous string if we're going through a new array, indicated by index 0
     	if(index == 0) {
     		fullEventString = "";
@@ -100,7 +100,8 @@ public class WebController
     					  "{"
     					+ "\n\"title\" : \"" + title + "\","
     					+ "\n\"start\" : \""+ start + "\","
-    					+ "\n\"end\" : \"" + end + "\""
+    					+ "\n\"end\" : \"" + end + "\","
+    					+ "\n\"color\" : \"" + color + "\","
     					+ "\n}", index, lastIndex);
     	//At this point fullEventString should contain entire calendar
     	if(index == lastIndex) {
@@ -144,20 +145,7 @@ public class WebController
     //Method that passes string of events to client-side calendar
     @RequestMapping(value = "/loadEvents", method = RequestMethod.POST)
     public @ResponseBody String loadEvents() throws FileNotFoundException {
-    	fullEventString = "";
-    	
-    	File calendar = new File("sampleEventCalendar.json");
-    	Scanner scan = new Scanner(calendar);
-    	
-    	while(scan.hasNext()) {
-    		fullEventString = fullEventString + scan.nextLine();
-    	}
-    	
-    	System.out.println(fullEventString);
-    	
     	Users user = employeeServices.getEmployeeByFirstName("Alice");
-    	
-    	employeeServices.availability(fullEventString, user);
     	
 		return user.getEventBlocks();
     }

@@ -38,7 +38,7 @@
 					eventData: function(eventE1) {
 						return {
 							title: eventE1.innerText,
-							backgroundColor: 'orange'
+							backgroundColor: '#ffa500'
 						};
 					}
 				});
@@ -63,6 +63,7 @@
 										var t = ev[i].title;
 										var s = ev[i].start;
 										var e = ev[i].end;
+										var c = ev[i].backgroundColor;
 										var st = s.toISOString();
 										var en = e.toISOString();
 										await new Promise(resolve => setTimeout(resolve, Math.random() * 200));
@@ -74,7 +75,8 @@
 												start: st,
 												end: en,
 												index: i,
-												lastIndex: lIndex
+												lastIndex: lIndex,
+												color: c
 											}
 										})
 									}
@@ -112,7 +114,7 @@
 					editable: true,
 					droppable: true,
 
-					//events: "/assets/sampleEventCalendar.json",
+					events: "/assets/sampleEventCalendar.json",
 
 					select: function(eventE) {
 						var title = prompt('Event title: ');
