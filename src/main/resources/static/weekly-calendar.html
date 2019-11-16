@@ -4,6 +4,9 @@
 		<title>My Calendar</title>
 		<meta charset="UTF-8">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="fullcalendar/core/main.css" />
 		<link rel="stylesheet" href="fullcalendar/daygrid/main.css" />
 		<link rel="stylesheet" href="fullcalendar/timegrid/main.css" />
@@ -156,7 +159,7 @@
 			#external-events {
 				position: fixed;
 				z-index: 2;
-				top: 20px;
+				top: 150px;
 				left: 20px;
 				width: 150px;
 				padding: 0 10px;
@@ -189,9 +192,34 @@
 		</style>
 	</head>
 	<body>
+	<div id="page-wrapper">
+
+			<!-- Header -->
+				<section id="header">
+					<div class="container">
+
+						<!-- Logo -->
+							<h1 id="logo"><a>Weekly Calendar</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a class="icon solid fa-home" href="index.html"><span>Home Page</span></a></li>
+									<li><a class="icon solid fa-sitemap" href="about-us.html"><span>About Us</span></a></li>
+									<li>
+										<a class="icon solid fa-retweet" href="login.html"><span>Login</span></a>
+										<ul>
+											<li><a href="register.html">Register</a></li>
+										</ul>
+									</li>
+									<li><a class="icon fa-chart-bar" href="weekly-calendar.html" ><span>My Calender</span></a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</section>
 		<div id="external-events">
 			<p>
-				<p><a href="index.html">Home</a><br><a href="about-us.html">About Us</a><br><a href="login.html">Login</a><br><a href="register.html">Register</a><br></p>
 				Drag predefined events onto calendar or click on blank spaces to add custom events.
 				<br><br>
 				Click save button at the top of the page to save your calendar.
@@ -204,5 +232,6 @@
 		<div id="calendar-container">
 			<div id="calendar"></div>
 		</div>
+		
 	</body>
 </HTML>
