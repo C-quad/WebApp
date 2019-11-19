@@ -44,25 +44,25 @@ public class LoginAndRegister
     	
     	// send responses back to the frontend and explain type of error 
     	
-    	employeeServices.addEmployee(new Users(UUID.randomUUID(), newEmployee.getFirstName(), newEmployee.getLastName(), false, newEmployee.getEmail(), newEmployee.getPassword()) );
+    	employeeServices.addEmployee(new Users(UUID.randomUUID(), newEmployee.getFirstName(), newEmployee.getLastName(), false, newEmployee.getEmail(), newEmployee.getPassword(), newEmployee.getCheckPassword()));
    
     	
     }
     
     
     
-    /* login page 
-    
-	@RequestMapping( value = "/loginCredentials", method = RequestMethod.POST)
-	public void checkLoginInformation(@RequestParam(value = "mail") String email,
-			@RequestParam(value = "pass") String password) 
+     //login page 
+    /*
+	@RequestMapping( value = "/login.html", method = RequestMethod.POST)
+	public void checkLoginInformation(@RequestParam(value = "mail") String email, @RequestParam(value = "pass") String password) 
 	{
 		System.out.println(email + " " + password);
+		
 	}
     
+   
+	@RequestMapping( value = "/login.html", method = RequestMethod.POST)
+    public redirec 
     */
-    
-    
-    
 		
 }

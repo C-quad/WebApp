@@ -12,7 +12,7 @@
 			function loginCredentials(email, password) {
 				$.ajax({
 					type: "POST",
-					url: "/loginCredentials",
+					url: "/login.html",
 					data: {
 						mail: email.value,
 						pass: password.value
@@ -63,7 +63,8 @@
 						    <label>Password</label>
 						    <input type="password" class="form-control" id="password" placeholder="Password">
 						  </div>
-						  <button type="submit" class="btn btn-primary" id="submitBtn">Login</button>
+						  <button onclick="location.href='weekly-calendar.html'" type="submit" class="btn btn-primary" id="submitBtn">Login</button>
+						
 						</form>
 					</div>
 				</section>

@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 
@@ -23,7 +23,7 @@ public class Users
 {
 
 	@Autowired
-	BCryptPasswordEncoder bcrypt;
+	//BCryptPasswordEncoder bcrypt;
 	
 	@Id
 	private UUID employeeId; 
@@ -52,18 +52,20 @@ public class Users
 			@JsonProperty("lastName")String lastName,
 			@JsonProperty("managerStatus")Boolean managerStatus,
 			@JsonProperty("email")String email,
-			@JsonProperty("password")String password
+			@JsonProperty("password")String password,
+			@JsonProperty("password")String eventBlocks
+			
 				)
 				{
-					bcrypt = new BCryptPasswordEncoder();
+					//bcrypt = new BCryptPasswordEncoder();
 					
 				    this.employeeId = employeeId;
 			        this.firstName = firstName;
 			        this.lastName = lastName;
 			        this.managerStatus = managerStatus;
 			        this.email = email; 
-			        this.password = bcrypt.encode(password);
-			        this.eventBlocks = "";
+			        this.password =  password; //bcrypt.encode(password);
+			        this.eventBlocks = eventBlocks;
 
 				}
 	
@@ -80,6 +82,7 @@ public class Users
 	
 	
 	// Setters and getters 
+	
 	public UUID getEmployeeId()
 	{
 		return employeeId;

@@ -106,9 +106,10 @@ public class WebController
     		
     		System.out.println(user.getFirstName());
 
-        	employeeServices.availability(fullEventString, user);
+        	user = employeeServices.availability(fullEventString,user);
         	
     		System.out.println(user.getEventBlocks());
+    		System.out.println("user hello");
 
         	
     	}

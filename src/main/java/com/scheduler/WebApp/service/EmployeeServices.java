@@ -23,8 +23,8 @@ public class EmployeeServices
 		
 		this.employeeRepository = employeeRepository;
 		employeeRepository.deleteAll();
-		employeeRepository.save(new Users( UUID.randomUUID(), "Alice", "Smith", false, "aSmith@gmail.com", "Password"));	
-		employeeRepository.save(new Users( UUID.randomUUID(), "Bob", "Smith", false, "bSmith@gmail.com", "Passowrd"));
+		employeeRepository.save(new Users( UUID.randomUUID(), "Alice", "Smith", false, "aSmith@gmail.com", "Password", ""));	
+		employeeRepository.save(new Users( UUID.randomUUID(), "Bob", "Smith", false, "bSmith@gmail.com", "Passowrd",""));
 	
 	}
 	
@@ -34,7 +34,7 @@ public class EmployeeServices
 	public Users addEmployee(Users employee)
 	{
 		employee.setEmployeeId(UUID.randomUUID());
-		
+	
 		return employeeRepository.save(employee);
 	}
 
@@ -83,15 +83,19 @@ public class EmployeeServices
 	
 	
 	// insert availability
-	public String availability(String schedule, Users employee)
+	public Users availability(String schedule, Users employee)
 	{
 
 		
 		employee.setEventBlocks(schedule);
 		
+
+		employeeRepository.deleteAll();
 		employeeRepository.save(employee);
-				
-		return employee.getEventBlocks();
+		
+		
+		
+		return employee;
 	}
 	
 	

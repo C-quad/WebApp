@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<HTML lang="en">
+	<head>
+		<title>My Calendar</title>
+		<meta charset="UTF-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="fullcalendar/core/main.css" />
+		<link rel="stylesheet" href="fullcalendar/daygrid/main.css" />
+		<link rel="stylesheet" href="fullcalendar/timegrid/main.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<script src="fullcalendar/core/main.js"></script>
+		<script src="fullcalendar/daygrid/main.js"></script>
+		<script src="fullcalendar/timegrid/main.js"></script>
+		<script src="fullcalendar/interaction/main.js"></script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var Calendar = FullCalendar.Calendar;
+				var Draggable = FullCalendarInteraction.Draggable;
+
+				var containerE1 = document.getElementById("external-events");
+				var calendarE1 = document.getElementById("calendar");
+				var checkbox = document.getElementById("drop-remove");
+
+				new Draggable(containerE1, {
+					itemSelector: ".fc-event",
+					eventData: function(eventE1) {
+						return {
+							title: eventE1.innerText
+						};
+					}
+				});
+				
+				new Draggable(containerE1, {
+					itemSelector: ".fc-event2",
+					eventData: function(eventE1) {
+						return {
+							title: eventE1.innerText,
+							backgroundColor: '#ffa500'
+						};
+					}
+				});
+
+				var calendar = new Calendar(calendarE1, {
+					plugins: [ "interaction", "dayGrid", "timeGrid" ],
+					defaultView: "timeGridWeek",
+					header: {
+						left: "prev,next today addSaveButton,addLoadButton",
+						center: "title",
+						right: "dayGridMonth,timeGridWeek,timeGridDay"
+					},
+					customButtons: {
+						addSaveButton: {
+							text: 'Save',
+							click: function() {
+								(async function loop() {
+									var ev = calendar.getEvents();
+									var i;
+									var lIndex = ev.length - 1;
+									for(i = 0; i < ev.length; i++) {
+										var t = ev[i].title;
+										var s = ev[i].start;
+										var e = ev[i].end;
+										var c = ev[i].backgroundColor;
+										var st = s.toISOString();
+										var en = e.toISOString();
+										await new Promise(resolve => setTimeout(resolve, Math.random() * 200));
+										$.ajax({
+											url: '/getEvents',
+											type: 'POST',
+											data: {
+												title: t,
+												start: st,
+												end: en,
+												index: i,
+												lastIndex: lIndex,
+												color: c
+											}
+										})
+									}
+								})();
+							}
+						},
+						addLoadButton: {
+							text: 'Load',
+							click: function() {
+								//Removes all events from calendar
+								(async function loop() {
+									var events = calendar.getEvents();
+									var evSources = calendar.getEventSources();
+										for(var i = 0; i < events.length; i++) {
+											events[i].remove();
+											await new Promise(resolve => setTimeout(resolve, Math.random() * 200));
+										}
+									evSources.remove();
+								})();
+
+								$.ajax({
+									url: '/loadEvents',
+									type: 'POST',
+									data: { "data" : "check" },
+									success: function(data) {
+										calendar.addEventSource(eval(data));
+										calendar.refetch();
+									}
+								})
+							}
+						}
+					},
+					selectable: true,
+					selectMirror: true,
+					editable: true,
+					droppable: true,
+
+					events: "/assets/sampleEventCalendar.json",
+
+					select: function(eventE) {
+						var title = prompt('Event title: ');
+						if(title) {
+							calendar.addEvent({
+								title: title,
+								start: eventE.start,
+								end: eventE.end,
+								allDay: eventE.allDay
+							})
+						}
+						calendar.unselect()
+					}
+				});
+
+				calendar.on('eventClick', function(eventE) {
+					var del = confirm("Delete this event?\nEvent Name: " + eventE.event.title + "\nStart time: " + eventE.event.start + "\nEnd  time: " + eventE.event.end);
+					if(del) {
+						var del2 = confirm("Are you sure you want to delete: " + eventE.event.title + "?");
+						if(del2) {
+							eventE.event.remove();
+						}
+					}
+					calendar.unselect()
+				});
+
+				calendar.render();
+			});
+		</script>
+
+		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+				font-size: 14px;
+			}
+
+			#external-events {
+				position: fixed;
+				z-index: 2;
+				top: 150px;
+				left: 20px;
+				width: 150px;
+				padding: 0 10px;
+				border: 1px solid #ccc;
+				background: #eee;
+			}
+
+			#external-events .fc-event {
+				margin: 1em 0;
+				cursor: move;
+			}
+			
+			#external-events .fc-event2 {
+				margin: 1em 0;
+				cursor: move;
+				background-color: orange;
+				color: white;
+			}
+
+			#calendar-container {
+				position: relative;
+				z-index: 1;
+				margin-left: 200px;
+			}
+
+			#calendar {
+				max-width: 900px;
+				margin: 20px auto;
+			}
+		</style>
+	</head>
+	<body>
+	<div id="page-wrapper">
+
+			<!-- Header -->
+				<section id="header">
+					<div class="container">
+
+						<!-- Logo -->
+							<h1 id="logo"><a>Weekly Calendar</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a class="icon solid fa-home" href="index.html"><span>Home Page</span></a></li>
+									<li><a class="icon solid fa-sitemap" href="about-us.html"><span>About Us</span></a></li>
+									<li>
+										<a class="icon solid fa-retweet" href="login.html"><span>Login</span></a>
+										<ul>
+											<li><a href="register.html">Register</a></li>
+										</ul>
+									</li>
+									<li><a class="icon fa-chart-bar" href="weekly-calendar.html" ><span>My Calender</span></a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</section>
+		<div id="external-events">
+			<p>
+				Drag predefined events onto calendar or click on blank spaces to add custom events.
+				<br><br>
+				Click save button at the top of the page to save your calendar.
+				<br><br>
+				<strong>Draggable Events</strong>
+			</p>
+			<div style="background-color:orange;" class="fc-event2">Work</div>
+			<div class="fc-event">School</div>
+		</div>
+		<div id="calendar-container">
+			<div id="calendar"></div>
+		</div>
+		
+	</body>
+</HTML>

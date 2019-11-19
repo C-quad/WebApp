@@ -3,6 +3,7 @@ package com.scheduler.WebApp.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+/*
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,3 +53,5 @@ public class EmployeeDetailsService  implements UserDetailsService
 	
 	
 }
+
+*/

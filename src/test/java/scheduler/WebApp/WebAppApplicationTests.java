@@ -19,7 +19,7 @@ public class WebAppApplicationTests {
 	{
 		
 	    UUID idNum = UUID.randomUUID();
-	    Users lance = new Users(idNum, "Lance", "Dall", false, "test@gmail.com", "password");
+	    Users lance = new Users(idNum, "Lance", "Dall", false, "test@gmail.com", "password","");
 
 	    assertEquals(idNum, lance.getEmployeeId());
 		
@@ -31,7 +31,7 @@ public class WebAppApplicationTests {
 	{
 	    
 	        UUID idNum2 = UUID.randomUUID();
-	        assertEquals(idNum2, new Users(idNum2, "Alex", "Ander", false, "test@gmail.com", "password").getEmployeeId());
+	        assertEquals(idNum2, new Users(idNum2, "Alex", "Ander", false, "test@gmail.com", "password","").getEmployeeId());
 	    
 	}
 }

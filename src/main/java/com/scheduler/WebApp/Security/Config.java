@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+/*
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +22,7 @@ import com.scheduler.WebApp.service.EmployeeServices;
 
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 @Order(1)
 public class Config extends WebSecurityConfigurerAdapter
 {
@@ -35,16 +36,8 @@ public class Config extends WebSecurityConfigurerAdapter
 		
 			.authorizeRequests()
 		        .antMatchers("/register.html","/", "/index.html","/about-us.html","/404.html","/assets/**" ,"/fullcalendar/**", "/images/**", "/resources/**").permitAll()
-		        .antMatchers("/css/**","/js/**", "/sass/**", "/webfonts/**", "/static/**").permitAll()
-		        .anyRequest().authenticated()
-		        .and()
-		    .formLogin()
-		        .loginPage("/login.html").permitAll()
-		        .and()
-		    .logout()
-		        .permitAll();
-				
-		
+		        .antMatchers("/css/**","/js/**", "/sass/**", "/webfonts/**", "/static/**", "/weekly-calendar.html").permitAll();
+		  
 	}
 	
 	
@@ -67,3 +60,4 @@ public class Config extends WebSecurityConfigurerAdapter
 	
 
 }
+*/
