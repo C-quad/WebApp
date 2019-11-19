@@ -1,4 +1,4 @@
-# Work Schedule
+# Work Scheduler
 
 _Create Work Schedules that Work Around **Your** Schedule_
 
