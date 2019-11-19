@@ -51,9 +51,16 @@ public class LoginAndRegister
     
     
     
-    // login page 
+    /* login page 
     
+	@RequestMapping( value = "/loginCredentials", method = RequestMethod.POST)
+	public void checkLoginInformation(@RequestParam(value = "mail") String email,
+			@RequestParam(value = "pass") String password) 
+	{
+		System.out.println(email + " " + password);
+	}
     
+    */
     
     
     

@@ -28,11 +28,6 @@ public class WebController
 	//Using a static string field to ensure we end up with only one string
 	private static String fullEventString = "";
 	
-	@RequestMapping( value = "/loginCredentials", method = RequestMethod.POST)
-	public void checkLoginInformation(@RequestParam(value = "mail") String email,
-			@RequestParam(value = "pass") String password) {
-		System.out.println(email + " " + password);
-	}
 	
 	// Add an employee to the database
     @RequestMapping( value = "/addEmployee", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE )

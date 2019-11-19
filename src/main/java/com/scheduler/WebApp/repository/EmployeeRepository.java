@@ -16,6 +16,7 @@ public interface EmployeeRepository extends MongoRepository<Users, String>  {
 	void delete(Users deleted);
 	
 	public Users findByFirstName(String firstName);
+	public Users findByEmail(String Email);
     
     //public List<Users> findByLastName(String lastName);
     

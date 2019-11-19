@@ -21,7 +21,6 @@ public class EmployeeServices
 	public EmployeeServices(EmployeeRepository employeeRepository)
 	{
 		
-		
 		this.employeeRepository = employeeRepository;
 		employeeRepository.deleteAll();
 		employeeRepository.save(new Users( UUID.randomUUID(), "Alice", "Smith", false, "aSmith@gmail.com", "Password"));	
@@ -84,7 +83,6 @@ public class EmployeeServices
 	
 	
 	// insert availability
-	
 	public String availability(String schedule, Users employee)
 	{
 
@@ -96,5 +94,29 @@ public class EmployeeServices
 		return employee.getEventBlocks();
 	}
 	
+	
+	
+	
+	public Boolean checkIfEmailIsUsed( String email)
+	{
+		Users employee = employeeRepository.findByEmail(email);
+		
+		if (employee == null )
+		{
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	public Users getByEmail( String email)
+	{
+		Users employee = employeeRepository.findByEmail(email);
+		
+	
+		return employee; 
+		
+	}
 	
 }

@@ -1,22 +1,29 @@
 package com.scheduler.WebApp.model;
 
 import java.util.Set;
+
 import java.util.UUID;
 
 import javax.management.relation.Role;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 
 
 
 public class Users 
 {
+
+	@Autowired
+	BCryptPasswordEncoder bcrypt;
 	
 	@Id
 	private UUID employeeId; 
@@ -32,6 +39,13 @@ public class Users
 	
 
 	//Constructor
+	
+	public Users()
+	{
+		
+	}
+	
+	
 	public Users(
 			@JsonProperty("employeeID")UUID employeeId, 
 			@JsonProperty("firstName")String firstName,
@@ -41,15 +55,14 @@ public class Users
 			@JsonProperty("password")String password
 				)
 				{
+					bcrypt = new BCryptPasswordEncoder();
+					
 				    this.employeeId = employeeId;
 			        this.firstName = firstName;
 			        this.lastName = lastName;
 			        this.managerStatus = managerStatus;
-
 			        this.email = email; 
-			        this.password = password;
-			        
-
+			        this.password = bcrypt.encode(password);
 			        this.eventBlocks = "";
 
 				}

@@ -1,14 +1,16 @@
 package com.scheduler.WebApp.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class CreateUser 
 {
-	//@AutoWired
-	//BCryptPasswordEncoder bcrypt; 
+	@Autowired
+	BCryptPasswordEncoder bcrypt; 
 	
 	
 	@NotNull 
@@ -33,20 +35,22 @@ public class CreateUser
 	public CreateUser(String firstName, String lastName, String email,  String password, String checkPassword)
 	{
 
-	//	bcrypt = new BCryptPasswordEncoder();
+		
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.checkPassword = checkPassword;
+		
+		bcrypt = new BCryptPasswordEncoder();
 	}
 
 	
 	
 	public boolean checkPass()
 	{	
-		return true; //bcrypt.matches(password, checkPassword);
+		return bcrypt.matches(password, checkPassword);
 	}
 
 	public String getFirstName() {

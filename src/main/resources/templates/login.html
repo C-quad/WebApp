@@ -1,5 +1,6 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE HTML SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Scheduler | Register</title>
 		<meta charset="utf-8" />
@@ -8,22 +9,19 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 		<script>
-			function check/Credentials(firstName, lastName, email, password, repassword) {
+			function loginCredentials(email, password) {
 				$.ajax({
 					type: "POST",
-					url: "/check/Credentials",
+					url: "/loginCredentials",
 					data: {
-						fname: firstName.value,
-						lname: lastName.value,
-						em: email.value,
-						pass: password.value,
-						repass: repassword.value
+						mail: email.value,
+						pass: password.value
 					}
 				})
-					
 			}
 		</script>
 	</head>
+	
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
 
@@ -32,7 +30,7 @@
 					<div class="container">
 
 						<!-- Logo -->
-							<h1 id="logo"><a>Register</a></h1>
+							<h1 id="logo"><a>Login</a></h1>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -55,15 +53,7 @@
 				<!-- Main -->
 				<section id="main">
 					<div class="container">
-						<form name="myForm" onSubmit="JavaScript:checkCredentials(fname, lname, email, password, repassword)">
-						  <div class="form-group">
-						    <label>First Name</label>
-						    <input type="text" class="form-control" id="fname" placeholder="Enter First Name">
-						  </div>
-						  <div class="form-group">
-						    <label>Last Name</label>
-						    <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
-						  </div>
+						<form name="loginForm" onSubmit="JavaScript:loginCredentials(email, password)">
 						  <div class="form-group">
 						    <label>Email address</label>
 						    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -73,11 +63,7 @@
 						    <label>Password</label>
 						    <input type="password" class="form-control" id="password" placeholder="Password">
 						  </div>
-						  <div class="form-group">
-						    <label>Re-enter Password</label>
-						    <input type="password" class="form-control" id="repassword" placeholder="Re-enter the same Password">
-						  </div>
-						  <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+						  <button type="submit" class="btn btn-primary" id="submitBtn">Login</button>
 						</form>
 					</div>
 				</section>
