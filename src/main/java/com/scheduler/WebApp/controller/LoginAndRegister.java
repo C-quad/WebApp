@@ -53,17 +53,24 @@ public class LoginAndRegister
     
     
      //login page 
-    /*
-	@RequestMapping( value = "/login.html", method = RequestMethod.POST)
-	public void checkLoginInformation(@RequestParam(value = "mail") String email, @RequestParam(value = "pass") String password) 
+    
+	@RequestMapping( value = "/login", method = RequestMethod.GET)
+	public String checkLoginInformation(@RequestParam(value = "mail") String email, @RequestParam(value = "pass") String password) 
 	{
 		System.out.println(email + " " + password);
-		
+		redirect();
+		return "login";
 	}
     
+	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
+	public String redirect() {
+		return "redirect:weekly-calendar";
+	}
    
-	@RequestMapping( value = "/login.html", method = RequestMethod.POST)
-    public redirec 
-    */
+	@RequestMapping( value = "/weekly-calendar", method = RequestMethod.GET)
+    public String weeklyCalendar() {
+		return "weekly-calendar";
+	}
+    
 		
 }
