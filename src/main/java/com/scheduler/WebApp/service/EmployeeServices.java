@@ -1,30 +1,47 @@
 package com.scheduler.WebApp.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.mongodb.core.query.Update;
 import com.scheduler.WebApp.model.Users;
 import com.scheduler.WebApp.repository.EmployeeRepository;
 
 
 @Service 
+
 public class EmployeeServices 
 {	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	 @Autowired
+	  private MongoTemplate mongoTemplate;
 	
-	
+	 
+	 
 	public EmployeeServices(EmployeeRepository employeeRepository)
 	{
 		
 		this.employeeRepository = employeeRepository;
 		employeeRepository.deleteAll();
-		employeeRepository.save(new Users( UUID.randomUUID(), "Alice", "Smith", false, "aSmith@gmail.com", "Password", ""));	
-		employeeRepository.save(new Users( UUID.randomUUID(), "Bob", "Smith", false, "bSmith@gmail.com", "Passowrd",""));
+		employeeRepository.insert(new Users(ObjectId.get(), "Manager", "IMTHEBOSS", false, "bMan@gmail.com", "Passowrd",""));
+		employeeRepository.insert(new Users(ObjectId.get(), "Alice", "Smith", false, "aSmith@gmail.com", "Password", ""));	
+		employeeRepository.insert(new Users(ObjectId.get(), "Bob", "Smith", false, "bSmith@gmail.com", "Passowrd",""));
+		employeeRepository.insert(new Users(ObjectId.get(), "Eric", "Long", false, "elong@gmail.com", "Passowrd",""));
+		employeeRepository.insert(new Users(ObjectId.get(), "Derik", "Sicks", false, "dSicks@gmail.com", "Passowrd",""));
+		employeeRepository.insert(new Users(ObjectId.get(), "Tommy", "Bingue", false, "tBingue@gmail.com", "Passowrd",""));
 	
 	}
 	
@@ -33,7 +50,7 @@ public class EmployeeServices
 	// Add employee to database 
 	public Users addEmployee(Users employee)
 	{
-		employee.setEmployeeId(UUID.randomUUID());
+	//	employee.setEmployeeId(ObjectId.toHexString());
 	
 		return employeeRepository.save(employee);
 	}
@@ -56,19 +73,17 @@ public class EmployeeServices
 	
 	
 	// update employee info 
-	public Users updateEmployeeInfo(String firstName, String lastName, Boolean isManager )
+	public void updateEmployeeInfo(Users employee)
 	{
-		Users employee =  employeeRepository.findByFirstName(firstName);
-		
-		employee.setLastName(lastName);
-		employee.setIsManager(isManager);
-		
-		
-	
-		System.out.println(employee.getFirstName());
-		System.out.println(employee.getLastName());
 
-		return  employeeRepository.save(employee);
+		
+		employeeRepository.deleteAll();
+		employeeRepository.insert(new Users(ObjectId.get(), "Manager", "IMTHEBOSS", false, "bMan@gmail.com", "Passowrd",employee.getEventBlocks()));
+		employeeRepository.insert(new Users(ObjectId.get(), "Alice", "Smith", false, "aSmith@gmail.com", "Password", employee.getEventBlocks()));	
+		employeeRepository.insert(new Users(ObjectId.get(), "Bob", "Smith", false, "bSmith@gmail.com", "Passowrd",employee.getEventBlocks()));
+		employeeRepository.insert(new Users(ObjectId.get(), "Eric", "Long", false, "elong@gmail.com", "Passowrd",employee.getEventBlocks()));
+		employeeRepository.insert(new Users(ObjectId.get(), "Derik", "Sicks", false, "dSicks@gmail.com", "Passowrd",employee.getEventBlocks()));
+		employeeRepository.insert(new Users(ObjectId.get(), "Tommy", "Bingue", false, "tBingue@gmail.com", "Passowrd",employee.getEventBlocks()));
 	}
 	
 	
@@ -80,26 +95,26 @@ public class EmployeeServices
 		
 	}
 	
-	
-	
+		
 	// insert availability
-	public Users availability(String schedule, Users employee)
-	{
-
+	public void availability(String schedule, Users employee)
+	{ 
+		
+		System.out.println(employee.getEmployeeId() + " Are they the same" + employee.getUserId() );
+		
 		
 		employee.setEventBlocks(schedule);
-		
+		updateEmployeeInfo(employee);
 
-		employeeRepository.deleteAll();
-		employeeRepository.save(employee);
-		
-		
-		
-		return employee;
 	}
 	
-	
-	
+	public Users getEmployeeById(Users employeeFind)
+	{
+		System.out.print("////////// " + employeeFind.get_id()+ " ////////////");
+		Optional<Users> employee = employeeRepository.findById("5de5e94d3681334ee83a6838");
+		
+		return employee.get();
+	}
 	
 	public Boolean checkIfEmailIsUsed( String email)
 	{
@@ -114,6 +129,8 @@ public class EmployeeServices
 		
 	}
 	
+	
+	
 	public Users getByEmail( String email)
 	{
 		Users employee = employeeRepository.findByEmail(email);
@@ -123,4 +140,6 @@ public class EmployeeServices
 		
 	}
 	
+
+
 }

@@ -18,7 +18,8 @@
 		<script src="fullcalendar/timegrid/main.js"></script>
 		<script src="fullcalendar/interaction/main.js"></script>
 
-		<script>
+		<script th:inline="javascript">
+					
 			document.addEventListener("DOMContentLoaded", function() {
 				var Calendar = FullCalendar.Calendar;
 				var Draggable = FullCalendarInteraction.Draggable;
@@ -26,7 +27,7 @@
 				var containerE1 = document.getElementById("external-events");
 				var calendarE1 = document.getElementById("calendar");
 				var checkbox = document.getElementById("drop-remove");
-
+				
 				new Draggable(containerE1, {
 					itemSelector: ".fc-event",
 					eventData: function(eventE1) {
@@ -62,6 +63,8 @@
 									var ev = calendar.getEvents();
 									var i;
 									var lIndex = ev.length - 1;
+									var message = [[${Name}]];
+									
 									for(i = 0; i < ev.length; i++) {
 										var t = ev[i].title;
 										var s = ev[i].start;
@@ -79,7 +82,8 @@
 												end: en,
 												index: i,
 												lastIndex: lIndex,
-												color: c
+												color: c,
+												employee: message
 											}
 										})
 									}
@@ -89,10 +93,12 @@
 						addLoadButton: {
 							text: 'Load',
 							click: function() {
+								var message = [[${Name}]];
 								//Removes all events from calendar
 								(async function loop() {
 									var events = calendar.getEvents();
 									var evSources = calendar.getEventSources();
+									
 										for(var i = 0; i < events.length; i++) {
 											events[i].remove();
 											await new Promise(resolve => setTimeout(resolve, Math.random() * 200));
@@ -103,10 +109,13 @@
 								$.ajax({
 									url: '/loadEvents',
 									type: 'POST',
-									data: { "data" : "check" },
+									data: { "data" : "check",
+											employee: message
+										},
 									success: function(data) {
 										calendar.addEventSource(eval(data));
 										calendar.refetch();
+									
 									}
 								})
 							}
@@ -146,6 +155,7 @@
 
 				calendar.render();
 			});
+			
 		</script>
 
 		<style>
@@ -200,7 +210,26 @@
 
 						<!-- Logo -->
 							<h1 id="logo"><a>Weekly Calendar</a></h1>
-
+								<table>
+				            <thead>
+				                <tr>
+				                      <th>First Name</th>
+				                      <th>Last Name</th>
+				                      <th>Email</th>	
+				                      <th>ID</th>
+				                        
+				                </tr>
+				            </thead>
+				            <tbody>
+				                <tr th:each="employee : ${employeeList}">
+				                   	<td th:text="${employee.firstName}"></td>
+				                    <td th:text="${employee.lastName}"></td>
+				                    <td th:text="${employee.email}"></td>
+				                    <td th:text="${employee.employeeId}"></td>
+				                    
+				                </tr>
+				            </tbody>
+		       				 </table>
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
@@ -212,6 +241,7 @@
 											<li><a href="register.html">Register</a></li>
 										</ul>
 									</li>
+									<li><a class="icon solid fa-sitemap" href="employee.html"><span>Employees</span></a></li>
 									<li><a class="icon fa-chart-bar" href="weekly-calendar.html" ><span>My Calender</span></a></li>
 								</ul>
 							</nav>

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,7 +20,7 @@ public class EmployeeNameTest {
     {
         
         UUID idNum = UUID.randomUUID();
-        Users lance = new Users(idNum, "Lance", "Dall", false, "test@gmail.com", "password","");
+        Users lance = new Users(ObjectId.get(), "Lance", "Dall", false, "test@gmail.com", "password","");
 
         assertEquals("Lance Dall", lance.getFirstName() + " " + lance.getLastName());
         

@@ -6,19 +6,22 @@ import java.util.UUID;
 
 import javax.management.relation.Role;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 
 
-
+@Document(collection = "employee")
 public class Users 
 {
 
@@ -26,11 +29,14 @@ public class Users
 	//BCryptPasswordEncoder bcrypt;
 	
 	@Id
-	private UUID employeeId; 
+	 public ObjectId _id;
 	
+    @Indexed
+    private String firstName;
+	private ObjectId userId; 
+	private String employeeId; 
 	private String email;
 	private String password; 
-	private String firstName; 
 	private String lastName; 
 	private Boolean managerStatus;
 
@@ -47,7 +53,7 @@ public class Users
 	
 	
 	public Users(
-			@JsonProperty("employeeID")UUID employeeId, 
+			@JsonProperty("employeeID")ObjectId _id,
 			@JsonProperty("firstName")String firstName,
 			@JsonProperty("lastName")String lastName,
 			@JsonProperty("managerStatus")Boolean managerStatus,
@@ -58,8 +64,9 @@ public class Users
 				)
 				{
 					//bcrypt = new BCryptPasswordEncoder();
-					
-				    this.employeeId = employeeId;
+					this._id = _id;
+					this.userId = _id; 
+				    this.employeeId = get_id();
 			        this.firstName = firstName;
 			        this.lastName = lastName;
 			        this.managerStatus = managerStatus;
@@ -83,12 +90,28 @@ public class Users
 	
 	// Setters and getters 
 	
-	public UUID getEmployeeId()
+	public String get_id()
+	{ 
+		return _id.toHexString(); 
+	}
+	
+	public Object get_Obid()
+	{
+		return _id; 
+	}
+	
+	public void set_id(ObjectId _id)
+	{ 
+		this._id = _id; 
+	
+	}
+	
+	public String getEmployeeId()
 	{
 		return employeeId;
 	}
 	
-	public void setEmployeeId(UUID employeeId)
+	public void setEmployeeId(String employeeId)
 	{
 		this.employeeId = employeeId; 
 
@@ -169,6 +192,14 @@ public class Users
 		this.password = password;
 	}
 
+	public ObjectId getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(ObjectId userId) {
+		this.userId = userId;
+	}
  /* 
 	public boolean isEnabled() {
 		return enabled;

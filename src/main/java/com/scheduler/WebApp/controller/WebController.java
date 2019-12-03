@@ -2,27 +2,39 @@ package com.scheduler.WebApp.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.scheduler.WebApp.model.Users;
+import com.scheduler.WebApp.repository.EmployeeRepository;
 import com.scheduler.WebApp.service.EmployeeServices;
 
 
-@RestController
+@Controller
 public class WebController 
 {
 	@Autowired
 	private EmployeeServices employeeServices; 
+	
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
 	
 	//Using a static string field to ensure we end up with only one string
 	private static String fullEventString = "";
@@ -84,7 +96,7 @@ public class WebController
     @RequestMapping(value = "/getEvents", method = RequestMethod.POST)
     public void getEvents(@RequestParam(value = "title") String title, @RequestParam(value = "start") String start, 
     		@RequestParam(value = "end") String end, @RequestParam(value = "index") int index,
-    		@RequestParam(value = "lastIndex") int lastIndex, @RequestParam(value = "color") String color) {
+    		@RequestParam(value = "lastIndex") int lastIndex, @RequestParam(value = "color") String color, @RequestParam(value = "employee") String name) {
     	//Empties previous string if we're going through a new array, indicated by index 0
     	if(index == 0) {
     		fullEventString = "";
@@ -100,19 +112,14 @@ public class WebController
     					+ "\n}", index, lastIndex);
     	//At this point fullEventString should contain entire calendar
     	if(index == lastIndex) {
-    		System.out.println(fullEventString);
     		
-    		Users user = employeeServices.getEmployeeByFirstName("Alice");
+    		Users user = employeeRepository.findByFirstName(name);
     		
-    		System.out.println(user.getFirstName());
-
-        	user = employeeServices.availability(fullEventString,user);
-        	
-    		System.out.println(user.getEventBlocks());
-    		System.out.println("user hello");
-
+    		
+        	employeeServices.availability(fullEventString,user);
         	
     	}
+		
     	
     	
     }
@@ -140,10 +147,45 @@ public class WebController
     
     //Method that passes string of events to client-side calendar
     @RequestMapping(value = "/loadEvents", method = RequestMethod.POST)
-    public @ResponseBody String loadEvents() throws FileNotFoundException {
-    	Users user = employeeServices.getEmployeeByFirstName("Alice");
-    	
+    public @ResponseBody String loadEvents( @RequestParam(value = "employee") String name) throws FileNotFoundException {
+    	System.out.println(" inside load events" );
+    	Users user = employeeRepository.findByFirstName(name);
+    	System.out.println(name + " inside load events" );
 		return user.getEventBlocks();
     }
+    
+    
+
+	@RequestMapping("/weekly-calendar.html")
+	public void scheduleEmployeeDetails(Model model) {
+		model.addAttribute("employeeList", employeeRepository.findByFirstName("Manager"));
+		
+	}
+	
+
+	@RequestMapping("/employee.html")
+	public String employeeDetails(Model model) {
+		model.addAttribute("employeeList", employeeRepository.findAll());
+		
+		System.out.print(employeeRepository.findAll());
+		return "employee";
+	}
+	
+
+	
+	@RequestMapping(value="/weekly-calendar.html", method=RequestMethod.POST)
+	public void getEditPerson(@RequestParam("employeeId") String employeeId, Model model) {
+	    Map<String,Object> map = new HashMap<>();
+	    
+	    Users employee =  employeeRepository.findByEmail(employeeId);
+	    map.put("Name", employee.getFirstName());
+		model.addAttribute("employeeList", employee);
+		
+		
+	    // Set view.      
+	    
+	} 
+	
+    
 }
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,10 +19,10 @@ public class WebAppApplicationTests {
 	public void idNumTest() 
 	{
 		
-	    UUID idNum = UUID.randomUUID();
-	    Users lance = new Users(idNum, "Lance", "Dall", false, "test@gmail.com", "password","");
+	    ObjectId dNum = ObjectId.get();
+	    Users lance = new Users(dNum, "Lance", "Dall", false, "test@gmail.com", "password","");
 
-	    assertEquals(idNum, lance.getEmployeeId());
+	    assertEquals(dNum.toHexString(), lance.getEmployeeId());
 		
 	}
 
@@ -30,8 +31,8 @@ public class WebAppApplicationTests {
 	public void idNumTest2()
 	{
 	    
-	        UUID idNum2 = UUID.randomUUID();
-	        assertEquals(idNum2, new Users(idNum2, "Alex", "Ander", false, "test@gmail.com", "password","").getEmployeeId());
+		ObjectId dNum2= ObjectId.get();
+	        assertEquals(dNum2.toHexString(), new Users(dNum2, "Alex", "Ander", false, "test@gmail.com", "password","").getEmployeeId());
 	    
 	}
 }

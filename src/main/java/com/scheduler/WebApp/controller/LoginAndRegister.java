@@ -2,6 +2,7 @@ package com.scheduler.WebApp.controller;
 
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -44,7 +45,7 @@ public class LoginAndRegister
     	
     	// send responses back to the frontend and explain type of error 
     	
-    	employeeServices.addEmployee(new Users(UUID.randomUUID(), newEmployee.getFirstName(), newEmployee.getLastName(), false, newEmployee.getEmail(), newEmployee.getPassword(), newEmployee.getCheckPassword()));
+    	employeeServices.addEmployee(new Users(ObjectId.get(), newEmployee.getFirstName(), newEmployee.getLastName(), false, newEmployee.getEmail(), newEmployee.getPassword(), newEmployee.getCheckPassword()));
    
     	
     }
